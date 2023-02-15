@@ -5,7 +5,7 @@
       type="text"
       class="title"
       placeholder="Add Title"
-      value={{title}}
+      [value]="title"
       [disabled]="isDisabled"
       (blur)="handleInputFocus()"
     />
@@ -14,7 +14,7 @@
       type="text"
       class="description"
       placeholder="Add Description"
-      value={{description}}
+      [value]="description"
       [disabled]="isDisabled"
       (blur)="handleInputFocus()"
     />

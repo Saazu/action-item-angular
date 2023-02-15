@@ -22,10 +22,7 @@ export class ActionItem {
     this.actionItemState = "saved";
     const titleToSave = this.title.trim();
     const descriptionToSave = this.description.trim();
-    this.title = titleToSave;
-    this.description = descriptionToSave;
-    this.saveActionHandler(this.id, titleToSave, descriptionToSave);
-    console.log('Saved');
+    this.saveActionHandler(this.id, this.title , this.description);
   }
 
   cancel() {
@@ -34,21 +31,18 @@ export class ActionItem {
     // descriptionInputRef.current.blur();
     this.title = this.previousValues.title;
     this.description = this.previousValues.description;
-    console.log('Cancelled');
   }
 
   archive() {
     this.actionItemState = "archived";
     this.archiveActionHandler(this.id);
     this.isDisabled = true;
-    console.log('Archived');
   }
 
   unarchive() {
     this.actionItemState = "saved";
     this.unArchiveActionHandler(this.id);
     this.isDisabled = false;
-    console.log('Unarchived');
   }
 
   handleInputFocus() {
