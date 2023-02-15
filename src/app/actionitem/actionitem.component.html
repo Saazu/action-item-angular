@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="input-group">
+    <input
+      name="title"
+      type="text"
+      class="title"
+      placeholder="Add Title"
+      value={{title}}
+      [disabled]="isDisabled"
+      (blur)="handleInputFocus()"
+    />
+    <input
+      name="description"
+      type="text"
+      class="description"
+      placeholder="Add Description"
+      value={{description}}
+      [disabled]="isDisabled"
+      (blur)="handleInputFocus()"
+    />
+  </div>
+  <div class="button-group">
+    <span *ngIf="actionItemState === 'editing'">
+      <button name="cancel" (click)="cancel()">Cancel</button>
+      <button name="save" (click)="saveActionItem()">Save</button>
+    </span>
+    <span *ngIf="actionItemState === 'saved'">
+      <button name="archive" (click)="archive()">Archive</button>
+    </span>
+    <span *ngIf="actionItemState === 'archived'">
+      <button name="unarchive" (click)="unarchive()">Unarchive</button>
+    </span>
+  </div>
+
+</div>
+
+<p>
+  {{actionItemState}}
+</p>
+<p>
+  {{isDisabled}}
+</p>
