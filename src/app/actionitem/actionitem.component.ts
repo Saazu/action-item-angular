@@ -16,9 +16,13 @@ export class ActionItem {
 
   actionItemState: string = this.title !== "" ? "saved" : "editing";
   previousValues = { title: this.title, description: this.description };
-  isDisabled = this.actionItemState === "archived"
+  isInputDisabled = this.actionItemState === "archived"
+  isButtonDisabled() {
+    return this.title.trim() === "" || this.description.trim() === ""
+  };
 
   saveActionItem() {
+
     this.actionItemState = "saved";
     const titleToSave = this.title.trim();
     const descriptionToSave = this.description.trim();
@@ -36,13 +40,13 @@ export class ActionItem {
   archive() {
     this.actionItemState = "archived";
     this.archiveActionHandler(this.id);
-    this.isDisabled = true;
+    this.isInputDisabled = true;
   }
 
   unarchive() {
     this.actionItemState = "saved";
     this.unArchiveActionHandler(this.id);
-    this.isDisabled = false;
+    this.isInputDisabled = false;
   }
 
   handleInputFocus() {
@@ -53,12 +57,9 @@ export class ActionItem {
     }
   }
 
-  handleTitleChange(event: Event) {
-    // setTitleValue(event.currentTarget.value);
-  }
-
-  handleDescriptionChange(event: Event) {
-    // setDescriptionValue(event.currentTarget.value);
+  getValue(event: Event): string {
+    console.log("Event:", event)
+    return (event.target as HTMLInputElement).value;
   }
 }
 

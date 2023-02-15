@@ -1,4 +1,7 @@
-<div class="card">
+<div
+  [ngClass]="{'card': actionItemState !== 'archived',
+              'archived-card': actionItemState === 'archived'}"
+>
   <div class="input-group">
     <input
       name="title"
@@ -6,8 +9,10 @@
       class="title"
       placeholder="Add Title"
       [value]="title"
-      [disabled]="isDisabled"
-      (blur)="handleInputFocus()"
+      [disabled]="isInputDisabled"
+      (focus)="handleInputFocus()"
+      (ngModelChange)="title=getValue($event)"
+      [(ngModel)]="title"
     />
     <input
       name="description"
@@ -15,14 +20,16 @@
       class="description"
       placeholder="Add Description"
       [value]="description"
-      [disabled]="isDisabled"
-      (blur)="handleInputFocus()"
+      [disabled]="isInputDisabled"
+      (focus)="handleInputFocus()"
+      (ngModelChange)="description=getValue($event)"
+      [(ngModel)]="description"
     />
   </div>
   <div class="button-group">
     <span *ngIf="actionItemState === 'editing'">
-      <button name="cancel" (click)="cancel()">Cancel</button>
-      <button name="save" (click)="saveActionItem()">Save</button>
+      <button name="cancel" [disabled]="isButtonDisabled()" (click)="cancel()">Cancel</button>
+      <button name="save" [disabled]="isButtonDisabled()" (click)="saveActionItem()">Save</button>
     </span>
     <span *ngIf="actionItemState === 'saved'">
       <button name="archive" (click)="archive()">Archive</button>
@@ -31,12 +38,19 @@
       <button name="unarchive" (click)="unarchive()">Unarchive</button>
     </span>
   </div>
-
 </div>
 
 <p>
-  {{actionItemState}}
+  Title: {{title}}
+</p>
+
+<p>
+  Description: {{description}}
+</p>
+
+<p>
+  Inputs disabled: {{isInputDisabled}}
 </p>
 <p>
-  {{isDisabled}}
+  Buttons disabled: {{isButtonDisabled()}}
 </p>
