@@ -56,10 +56,12 @@ export class ActionItem {
       this.previousValues = { title: this.title, description: this.description };
     }
   }
+  handleTitleChange(event: InputEvent) {
+    this.title = (event.target as HTMLInputElement).value
+  }
 
-  getValue(event: Event): string {
-    console.log("Event:", event)
-    return (event.target as HTMLInputElement).value;
+  handleDescriptionChange(event: InputEvent) {
+    this.description = (event.target as HTMLInputElement).value
   }
 }
 

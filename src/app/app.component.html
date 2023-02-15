@@ -7,3 +7,17 @@
   [archiveActionHandler]="unarchiveActionItem"
 >
 </action-item>
+
+<div
+  *ngFor="let item of items"
+>
+  <action-item
+    [id]="item"
+    title=""
+    description=""
+    [saveActionHandler]="saveActionItem"
+    [unArchiveActionHandler]="archiveActionItem"
+    [archiveActionHandler]="unarchiveActionItem"
+  >
+  </action-item>
+</div>
