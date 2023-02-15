@@ -1,4 +1,15 @@
-# Actionitem
+# Task
+
+Teams record things they want to do until the next retro as Action Items. Action Items contain a title and a description (both mandatory), and they can be edited, archived, and unarchived.
+
+Your task is to implement a very basic UI to interact with an action item.
+
+- At the start, show a blank, new Action Item
+- The user should be able to fill in a title and details and then save the Action Item
+- A saved Action Item can be archived or edited again
+- An archived Action Item can be unarchived again
+- An archived Action Item cannot be edited
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.5.
 
