@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ActionItem} from "./actionitem/action-item";
 
 @Component({
   selector: 'app-root',
@@ -7,9 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  items = ['1','2','3','4','5']
-  saveActionItem(id: string, titleToSave: string, descriptionToSave: string) {
-    console.log("Saving:", id, titleToSave, descriptionToSave)
+  items = ['2','3',]
+  saveActionItem(actionItem: ActionItem) {
+    console.log("Saving:", actionItem)
   }
 
   archiveActionItem(id: string) {

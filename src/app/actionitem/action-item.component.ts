@@ -1,12 +1,13 @@
-import {Component, OnInit, Input, EventEmitter} from "@angular/core";
+import {Component, Input} from "@angular/core";
+import { ActionItemState} from "./action-item";
 
 @Component({
   selector: 'action-item',
-  templateUrl: 'actionitem.component.html',
-  styleUrls: ['actionitem.component.css']
+  templateUrl: 'action-item.component.html',
+  styleUrls: ['action-item.component.css']
 })
 
-export class ActionItem {
+export class ActionItemComponent {
   @Input() id: string = "";
   @Input() title: string = "";
   @Input() description: string = "";
@@ -14,42 +15,40 @@ export class ActionItem {
   @Input() archiveActionHandler: Function = (id: string): void => {};
   @Input() unArchiveActionHandler: Function = (id: string): void => {};
 
-  actionItemState: string = this.title !== "" ? "saved" : "editing";
-  previousValues = { title: this.title, description: this.description };
-  isInputDisabled = this.actionItemState === "archived"
-  isButtonDisabled() {
+  actionItemState: ActionItemState = this.title !== "" ? "saved" : "editing";
+  previousValues: { title: string, description: string} = { title: this.title, description: this.description };
+  isInputDisabled: boolean = this.actionItemState === "archived";
+
+  isButtonDisabled(): boolean {
     return this.title.trim() === "" || this.description.trim() === ""
   };
 
-  saveActionItem() {
-
+  saveActionItem(): void {
     this.actionItemState = "saved";
     const titleToSave = this.title.trim();
     const descriptionToSave = this.description.trim();
-    this.saveActionHandler(this.id, this.title , this.description);
+    this.saveActionHandler({ id: this.id, title: titleToSave, description: descriptionToSave });
   }
 
-  cancel() {
+  cancel(): void {
     this.actionItemState = "saved";
-    // titleInputRef.current.blur();
-    // descriptionInputRef.current.blur();
     this.title = this.previousValues.title;
     this.description = this.previousValues.description;
   }
 
-  archive() {
+  archive(): void {
     this.actionItemState = "archived";
     this.archiveActionHandler(this.id);
     this.isInputDisabled = true;
   }
 
-  unarchive() {
+  unarchive(): void {
     this.actionItemState = "saved";
     this.unArchiveActionHandler(this.id);
     this.isInputDisabled = false;
   }
 
-  handleInputFocus() {
+  handleInputFocus(): void {
     if (this.actionItemState !== "editing") {
       console.log("Focused");
       this.actionItemState = "editing";
