@@ -1,35 +1,30 @@
 <div
-  [ngClass]="{'card': actionItemState !== 'archived',
-              'archived-card': actionItemState === 'archived'}"
+  class="card"
+  [class.archived]="actionItemState === 'archived'"
+  [class.unarchived]="actionItemState !== 'archived'"
 >
   <div class="input-group">
     <input
       name="title"
       type="text"
-      class="title"
       placeholder="Add Title"
-      [value]="title"
       [disabled]="isInputDisabled"
       (focus)="handleInputFocus()"
-      (ngModelChange)="handleTitleChange($event)"
       [(ngModel)]="title"
     />
     <input
       name="description"
       type="text"
-      class="description"
       placeholder="Add Description"
-      [value]="description"
       [disabled]="isInputDisabled"
       (focus)="handleInputFocus()"
-      (ngModelChange)="handleDescriptionChange($event)"
       [(ngModel)]="description"
     />
   </div>
   <div class="button-group">
     <span *ngIf="actionItemState === 'editing'">
-      <button name="cancel" [disabled]="isButtonDisabled()" (click)="cancel()">Cancel</button>
-      <button name="save" [disabled]="isButtonDisabled()" (click)="saveActionItem()">Save</button>
+      <button name="cancel" [disabled]="isButtonDisabled" (click)="cancel()">Cancel</button>
+      <button name="save" [disabled]="isButtonDisabled" (click)="saveActionItem()">Save</button>
     </span>
     <span *ngIf="actionItemState === 'saved'">
       <button name="archive" (click)="archive()">Archive</button>

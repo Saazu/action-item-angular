@@ -2,22 +2,19 @@
   id='1'
   title=""
   description=""
-  [saveActionHandler]="saveActionItem"
-  [unArchiveActionHandler]="archiveActionItem"
-  [archiveActionHandler]="unarchiveActionItem"
+  (saveActionHandler)="saveActionItem($event)"
+  (unArchiveActionHandler)="archiveActionItem($event)"
+  (archiveActionHandler)="unarchiveActionItem($event)"
 >
 </action-item>
 
-<div
-  *ngFor="let item of items"
->
   <action-item
+    *ngFor="let item of items"
     [id]="item"
     title=""
     description=""
-    [saveActionHandler]="saveActionItem"
-    [unArchiveActionHandler]="archiveActionItem"
-    [archiveActionHandler]="unarchiveActionItem"
+    (saveActionHandler)="saveActionItem($event)"
+    (unArchiveActionHandler)="archiveActionItem($event)"
+    (archiveActionHandler)="unarchiveActionItem($event)"
   >
   </action-item>
-</div>

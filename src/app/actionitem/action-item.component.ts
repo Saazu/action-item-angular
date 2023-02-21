@@ -1,5 +1,5 @@
-import {Component, Input} from "@angular/core";
-import { ActionItemState} from "./action-item";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {ActionItem, ActionItemState} from "./action-item";
 
 @Component({
   selector: 'action-item',
@@ -8,18 +8,20 @@ import { ActionItemState} from "./action-item";
 })
 
 export class ActionItemComponent {
-  @Input() id: string = "";
-  @Input() title: string = "";
-  @Input() description: string = "";
-  @Input() saveActionHandler: Function = (id: string, titleToSave: string, descriptionToSave: string): void => {};
-  @Input() archiveActionHandler: Function = (id: string): void => {};
-  @Input() unArchiveActionHandler: Function = (id: string): void => {};
+  @Input() id: string;
+  @Input() title: string;
+  @Input() description: string;
+  @Output() saveActionHandler = new EventEmitter<ActionItem>();
+  @Output() archiveActionHandler =new EventEmitter<string>();//(id: string) => void; new EventEmitter<string>()
+  @Output() unArchiveActionHandler = new EventEmitter<string>();
 
+  // @ts-ignore
   actionItemState: ActionItemState = this.title !== "" ? "saved" : "editing";
+  // @ts-ignore
   previousValues: { title: string, description: string} = { title: this.title, description: this.description };
   isInputDisabled: boolean = this.actionItemState === "archived";
 
-  isButtonDisabled(): boolean {
+  get isButtonDisabled(): boolean {
     return this.title.trim() === "" || this.description.trim() === ""
   };
 
@@ -27,7 +29,7 @@ export class ActionItemComponent {
     this.actionItemState = "saved";
     const titleToSave = this.title.trim();
     const descriptionToSave = this.description.trim();
-    this.saveActionHandler({ id: this.id, title: titleToSave, description: descriptionToSave });
+    this.saveActionHandler.emit({id: this.id, title: this.title, description: this.description});
   }
 
   cancel(): void {
@@ -38,29 +40,21 @@ export class ActionItemComponent {
 
   archive(): void {
     this.actionItemState = "archived";
-    this.archiveActionHandler(this.id);
+    this.archiveActionHandler.emit(this.id);
     this.isInputDisabled = true;
   }
 
   unarchive(): void {
     this.actionItemState = "saved";
-    this.unArchiveActionHandler(this.id);
+    this.unArchiveActionHandler.emit(this.id);
     this.isInputDisabled = false;
   }
 
   handleInputFocus(): void {
     if (this.actionItemState !== "editing") {
-      console.log("Focused");
       this.actionItemState = "editing";
       this.previousValues = { title: this.title, description: this.description };
     }
-  }
-  handleTitleChange(event: InputEvent) {
-    this.title = (event.target as HTMLInputElement).value
-  }
-
-  handleDescriptionChange(event: InputEvent) {
-    this.description = (event.target as HTMLInputElement).value
   }
 }
 
