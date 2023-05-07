@@ -15,9 +15,8 @@ export class ActionItemComponent {
   @Output() archiveActionHandler =new EventEmitter<string>();//(id: string) => void; new EventEmitter<string>()
   @Output() unArchiveActionHandler = new EventEmitter<string>();
 
-  // @ts-ignore
+  
   actionItemState: ActionItemState = this.title !== "" ? "saved" : "editing";
-  // @ts-ignore
   previousValues: { title: string, description: string} = { title: this.title, description: this.description };
   isInputDisabled: boolean = this.actionItemState === "archived";
 
